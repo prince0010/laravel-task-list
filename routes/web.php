@@ -27,7 +27,7 @@ class Task_Data
     }
 }
 
-$task = [
+$tasks = [
     
     new Task_Data(
         1,
@@ -71,39 +71,25 @@ $task = [
 ];
 
 
+// This is the endpoint to display all the list 
+Route::get('/', function () use($tasks){
+    return view('welcome', [
+        'tasked'=> $tasks
+    ]);
+})->name('tasks.index');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/{id}/{title}', function($id){
+    return 'Successfully Routed to a New Page Task';
+})->name('tasks.show');
 // HTTP PROTOCOLS
 // GET, POST, PUT, DELETE 
 
-Route::get('/page/{name}', function($name){
-    return 'Hello ' . $name . "!";
-});
 
-Route::get('/ttt', function(){
-    return 'Hello this is test';
-})->name('hellotest1');
-
-
-// Mas chada ang naay redirect na naas ka same domain name sa gina redirect gamay or ginagamit pang search for even though lahi ma type sa user mu redirect japon sa katong website route na gina redirect
-
-Route::get('/HelloTest2', function(){
-    
-    return redirect()->route('hellotest1');
-    });
-
-    Route::get('/Testtt', function(){
-
-        return view('error', [
-            'name' => 'Prince Nagac',
-        ]);
-    });
     // If no Route exist then will redirect on this page or custom page for 404
 
 Route::fallback(function(){
-        return view('error');
+        return view('error', [
+            'name'=> 'Prince Nagac'
+        ]);
     });
 

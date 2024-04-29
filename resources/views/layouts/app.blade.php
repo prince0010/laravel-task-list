@@ -8,14 +8,10 @@
     <title>Laravel 10 Task List App</title>
 </head>
 <body>
-    <h1>
-        @yield('title')
-    </h1>
+    <h1> @yield('title') </h1>
 
     <div>
-        <p>
         @yield('content')
-        </p>
     </div>
 </body>
 </html>

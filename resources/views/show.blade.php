@@ -25,5 +25,14 @@ collect() function -->
         {{ $tasked->updated_at }}
     </div>
 
+    <div>
+        <!-- $tasked is from the parameter of the ['tasked'=> $task] in the tasks.show route in web.php it called the properties or attributes in the database or in the model  -->
+        <form action="{{route('tasks.destroy', ['task' => $tasked->id]) }}" method="POST">
+            @csrf
+            @method('DELETE') 
+            <!-- We used method() sniffing since the method in form is only for the POST and PUT no DELETE and PUT -->
+            <button type="submit">Delete</button>
+        </form>
+    </div>
 </center>
 @endsection

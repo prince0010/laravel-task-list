@@ -14,7 +14,7 @@
         
         {{
 
-        route('tasks.show', ['id' => $task -> id])
+        route('tasks.show', ['task' => $task -> id])
         
         }} 
         

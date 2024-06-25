@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     use HasFactory; // This is needed for cerearting a factory model it automatically created by this command php artisan make:factory 'name' --model='name of the model'
+
+    protected $fillable = ['title', 'description', 'long_description']; // Make sure that you dont add the secret or password or sensitive information in the fillable 
+    //Be careful sa mga properties dapat i define nimo ang mga properties as a fillable like kaning title, description, long_description
+    // protected $guarded = ['secrets', 'password'];
+
 }
+
+// <!-- The Task Model will be created same as with the migration file and it should be created at the same time with the migration so that it will be connected and it will have all the column data (like name, id, lastname, firstname, middlename) in the data table in the database -->

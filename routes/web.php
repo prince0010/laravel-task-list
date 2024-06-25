@@ -29,7 +29,6 @@ class Task_Data
     )
     {}
 }
-
     Route::get('/', function(){
         return redirect()->route('tasks.index');
     });
@@ -38,16 +37,16 @@ class Task_Data
     Route::get('/tasks', function () {
         return view('index', [
             // 'tasks'=> Task::latest()->where('completed', true)->get() // The Query Builder latest() and where(), the where() query builder makes the query fetch only the data that if the data is completed or equals to 1 and get() function will execute the query
-            'tasks' => Task::latest()->get()
+            'tasks' => Task::latest()->paginate(10)
         ]);
     })->name('tasks.index');
 
     // The formation of this is a must because there are some times that it will execute some of the Routes before of that Routes Tasks
-    Route::view('/tasks/create-form', 'create-form');
+    Route::view('/tasks/create-form', 'create-form')
+    ->name('tasks.create');
 
     // Redirect to the View edit.blade.php
     Route::get('/tasks/{task}/edit', function(Task $task){
-
         return view('edit', ['tasked'=> $task ]);
 
     })->name('tasks.edit');
@@ -59,13 +58,7 @@ class Task_Data
 
     // Adding a data in the create-form by calling the route -> route('tasks.store) in post using the name which is the name(tasks.store)
     Route::post('/tasks', function (TaskRequest $request){
-        // dd($request->all()); 
-        // $data = $request->validated();
-        // $task -> title = $data['title'];
-        // $task -> description = $data['description'];
-        // $task -> long_description = $data['long_description'];
-        // $task -> save();
-
+   
             $task = Task::create($request->validated());
 
     // The paremeter in the tasks.show is the {task} in its paremeter which is the id of the task but it renamed as task so task == id 
@@ -77,13 +70,6 @@ class Task_Data
 
     Route::put('/tasks/{task}/edit', function (Task $task, TaskRequest $request){
         // dd($request->all());
-
-        // $data = $request->validated();
-        // $task -> title = $data['title'];
-        // $task -> description = $data['description'];
-        // $task -> long_description = $data['long_description'];
-        // $task -> save();
-
         $task->update($request->validated());
 
         return redirect()->route('tasks.show', ['task' => $task->id])
@@ -101,6 +87,11 @@ class Task_Data
     // HTTP PROTOCOLS AND VERBS
     // GET, POST, PUT, DELETE 
 
+    // Every changes in the database you must use the PUT or POST or DELETE VERB not the GET since GET will be only used if it is data retrieval
+    Route::put('tasls/{task}/toggle-complete' , function(Task $task){
+            $task->toggleComplete();
+            return redirect()->back()->with('Success', 'Toggle Completed');
+    })->name('tasks.toggle-complete');
 
         // If no Route exist then will redirect on this page or custom page for 404
 

@@ -13,6 +13,13 @@ class Task extends Model
     //Be careful sa mga properties dapat i define nimo ang mga properties as a fillable like kaning title, description, long_description
     // protected $guarded = ['secrets', 'password'];
 
+    // We can Add Methods in our models the method is this toggleComplete() and every Model we will add in the folder
+    public function toggleComplete(){
+        // I used $this since it will be the $task in the toggle-complete route in web.php
+        $this->completed = !$this->completed;
+            $this->save();
+    }
+
 }
 
 // <!-- The Task Model will be created same as with the migration file and it should be created at the same time with the migration so that it will be connected and it will have all the column data (like name, id, lastname, firstname, middlename) in the data table in the database -->

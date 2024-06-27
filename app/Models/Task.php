@@ -18,6 +18,10 @@ class Task extends Model
         // I used $this since it will be the $task in the toggle-complete route in web.php
         $this->completed = !$this->completed;
             $this->save();
+
+            // This is like the $this is == $task in that specific route
+            // $task->completed = !$task->completed;
+            // $task->save();
     }
 
 }
